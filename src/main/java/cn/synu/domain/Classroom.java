@@ -15,4 +15,6 @@ public class Classroom {
     private String cr_name;
 
     private Boolean flag;//判断教室是否为空
+
+    private String Car_status;
 }
