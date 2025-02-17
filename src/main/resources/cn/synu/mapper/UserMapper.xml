@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.synu.mapper.UserMapper" >
+  <resultMap id="BaseResultMap" type="cn.synu.domain.User" >
+    <id column="id" property="id" />
+    <result column="username" property="username" />
+    <result column="password" property="password" />
+    <result column="identity" property="identity" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" >
+    delete from user
+    where id = #{id}
+  </delete>
+    <delete id="deleteByUserNameAndPassword">
+      delete
+      from user
+      where username = #{username} and password = #{password}
+    </delete>
+    <insert id="insert" useGeneratedKeys="true" keyProperty="id" >
+    insert into user (username, password,identity)
+    values (#{username}, #{password} , #{identity})
+  </insert>
+  <update id="updateByPrimaryKey" >
+    update user
+    set username = #{username},
+      password = #{password}
+    where id = #{id}
+  </update>
+    <update id="updateByUserName">
+      update user
+      set
+          password = #{password}
+      where username = #{username}
+    </update>
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" >
+    select id, username, password ,identity
+    from user
+    where id = #{id}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap" >
+    select id, username, password , identity
+    from user
+  </select>
+    <select id="selectByUsername" resultMap="BaseResultMap">
+      select id, username, password , identity
+      from user
+      where username = #{username}
+    </select>
+  <select id="selectIdentityByUsernameAndPassword" resultMap="BaseResultMap">
+    select id, username, password , identity
+    from user
+    where username = #{username} and password = #{password}
+  </select>
+    <select id="selPermission_id" resultType="java.lang.Long">
+        select permission_id
+        from role_permission
+        where role_id = #{role_id}
+    </select>
+  <select id="selPermission" resultType="java.lang.String">
+    select permission
+    from permission
+    where id in
+    <foreach collection="permissionIds" item="id" open="(" separator="," close=")">
+        #{id}
+    </foreach>
+  </select>
+</mapper>

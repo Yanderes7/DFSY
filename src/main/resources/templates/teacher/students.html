@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>学生列表</title>
+</head>
+<body class="hold-transition skin-black sidebar-mini">
+    <div th:replace="common/fragment :: link"></div>
+    <div class="wrapper">
+        <div th:replace="common/fragment :: navbar"></div>
+        <div th:replace="common/fragment :: menu"></div>
+        <div class="content-wrapper">
+            <section class="content-header">
+                <h1>学生信息列表</h1>
+            </section>
+            <section class="content">
+                <div class="box">
+                    <!--高级查询--->
+                    <div style="margin: 10px;">
+                        <form class="form-inline" id="searchForm" action="/teacher/students" method="post">
+                            <input type="hidden" name="currentPage" id="currentPage" value="1">
+                            <div class="form-group">
+                                <label for="keyword">关键字:</label>
+                                <input type="text" class="form-control" id="keyword" name="keyword" placeholder="请输入学生姓名"
+                                       th:value="${qo?.keyword}">
+                            </div>
+<!--                            <div class="form-group">-->
+<!--                                <label for="dept"> 任课教师:</label>-->
+<!--                                <select class="form-control" id="dept" name="deptId">-->
+<!--                                    <option value="">全部</option>-->
+<!--                                </select>-->
+<!--                            </div>-->
+                            <button type="submit" class="btn btn-primary"><span class="glyphicon glyphicon-search"></span> 查询</button>
+<!--                            <a href="/employee/input" class="btn btn-success btn-input">-->
+<!--                                <span class="glyphicon glyphicon-plus"></span> 添加-->
+<!--                            </a>-->
+                        </form>
+                    </div>
+                    <div class="box-body table-responsive ">
+                        <table class="table table-hover table-bordered table-striped">
+                            <thead>
+                            <tr>
+                                <th><input type="checkbox" id="allCb"></th>
+                                <th>编号</th>
+                                <th>学生姓名</th>
+                                <th>学生学号</th>
+                                <th>学生性别</th>
+                                <th>学生年龄</th>
+                                <th>学生院系</th>
+                                <th>学生专业</th>
+                                <th>联系方式</th>
+                                <th>电子邮箱</th>
+                                <th>居住地址</th>
+                                <!--<th>操作</th>-->
+                            </tr>
+                            </thead>
+                            <tbody>
+                                <tr th:each="student,stat:${pageInfo.list}">
+                                    <td><input type="checkbox" class="cb"></td>
+                                    <td th:text="${stat.count}">1</td>
+                                    <td th:text="${student?.name}">小昊</td>
+                                    <td th:text="${student?. snum}">211291149</td>
+                                    <td th:text="${student?.sex}">男</td>
+                                    <td th:text="${student?.age}">22</td>
+                                    <td th:text="${student?.dept}">软件学院</td>
+                                    <td th:text="${student?.magor}">计算机科学与技术</td>
+                                    <td th:text="${student?.t_number}">15040289617</td>
+                                    <td th:text="${student?.email}">1773505086@qq.com</td>
+                                    <td th:text="${student?.address}">沈阳市</td>
+                                    <!--<td>-->
+                                    <!--    <a class="btn btn-info btn-xs btn_redirect">-->
+                                    <!--        <span class="glyphicon glyphicon-pencil"></span> 编辑-->
+                                    <!--    </a>-->
+                                    <!--    <a class="btn btn-danger btn-xs btn-delete">-->
+                                    <!--        <span class="glyphicon glyphicon-trash"></span> 删除-->
+                                    <!--    </a>-->
+                                    <!--</td>-->
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div th:replace="common/fragment :: page"></div>
+                    </div>
+                </div>
+            </section>
+        </div>
+        <div th:replace="common/fragment :: footer"></div>
+    </div>
+</body>
+</html>

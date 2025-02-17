@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>个人信息</title>
+</head>
+<body class="hold-transition skin-black sidebar-mini">
+<div th:replace="common/fragment :: link"></div>
+<div class="wrapper">
+    <div th:replace="common/fragment :: navbar"></div>
+    <div th:replace="common/fragment :: menu"></div>
+    <div class="content-wrapper">
+        <section class="content-header">
+            <h1>个人信息</h1>
+        </section>
+        <section class="content">
+            <div class="box">
+                <form class="form-horizontal" action="/teacher/update" method="post" id="editForm">
+                    <input type="hidden" name="id" th:value="${teacher?.id}">
+                    <div class="form-group" style="margin-top: 10px;">
+                        <label class="col-sm-2 control-label">用户名：</label>
+                        <div class="col-sm-6">
+                            <input disabled type="text" class="form-control" name="username"
+                                   th:value="${teacher?.username}">
+                        </div>
+                    </div>
+
+                    <div class="form-group" style="margin-top: 10px;">
+                        <label class="col-sm-2 control-label">密码：</label>
+                        <div class="col-sm-6">
+                            <input disabled type="text" class="form-control" name="password"
+                                   th:value="${teacher?.password}">
+                        </div>
+                    </div>
+
+                    <div class="form-group" style="margin-top: 10px;">
+                        <label class="col-sm-2 control-label">真实姓名：</label>
+                        <div class="col-sm-6">
+                            <input disabled type="text" class="form-control" name="name"
+                                   th:value="${teacher?.name}">
+                        </div>
+                    </div>
+
+                    <div class="form-group" style="margin-top: 10px;">
+                        <label class="col-sm-2 control-label">教师编号：</label>
+                        <div class="col-sm-6">
+                            <input disabled type="text" class="form-control" name="snum"
+                                   th:value="${teacher?.tnum}">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="sex" class="col-sm-2 control-label">性别：</label>
+                        <div class="col-sm-6">
+                            <input disabled  type="text" class="form-control" id="sex" name="sex"
+                                   th:value="${teacher?.sex}">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="age" class="col-sm-2 control-label">年龄：</label>
+                        <div class="col-sm-6">
+                            <input disabled  type="text" class="form-control" id="age" name="age"
+                                   th:value="${teacher?.age}">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="dept" class="col-sm-2 control-label">学院：</label>
+                        <div class="col-sm-6">
+                            <input disabled  type="text" class="form-control" id="dept" name="dept"
+                                   th:value="${teacher?.dept}">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="email" class="col-sm-2 control-label">电子邮箱：</label>
+                        <div class="col-sm-6">
+                            <input disabled  type="text" class="form-control" id="email" name="email"
+                                   th:value="${teacher?.email}">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="p_title" class="col-sm-2 control-label">职称：</label>
+                        <div class="col-sm-6">
+                            <input disabled  type="text" class="form-control" id="p_title" name="p_title"
+                                   th:value="${teacher?.p_title}">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="address" class="col-sm-2 control-label">地址：</label>
+                        <div class="col-sm-6">
+                            <input disabled  type="text" class="form-control" id="address" name="address"
+                                   th:value="${teacher?.address}">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <a th:href="|/teacher/update?id=${teacher?.id}|" class="col-sm-offset-1 col-sm-6">
+                            <button type="button" class="btn btn-primary btn-submit">修改个人信息</button>
+                        </a>
+                    </div>
+                </form>
+            </div>
+        </section>
+    </div>
+    <div th:replace="common/fragment :: footer"></div>
+</div>
+<script>
+    //修改个人信息
+    // $(".btn-submit").click(function () {
+    //     var student = $("#editForm").serialize();
+    //     $.post(
+    //         '/student/update',
+    //         student
+    //     )
+    // })
+
+
+
+    // //左右移动
+    // function moveAll(src, target) {
+    //     $("." + target).append($("." + src + " > option "))
+    // }
+    //
+    // function moveSelected(src, target) {
+    //     $("." + target).append($("." + src + " > option:selected "))
+    // }
+    //
+    // //去重
+    // $(function () {
+    //     var array = [];
+    //     $(".selfRoles > option").each(function (index, domEle) {
+    //         array.push($(domEle).val())
+    //     })
+    //     $(".allRoles > option").each(function (index, domEle) {
+    //         if ($.inArray($(domEle).val(), array) >= 0) {
+    //             $(domEle).remove()
+    //         }
+    //     })
+    // })
+    // //判断是否是管理人员 如果是管理员则隐藏角色信息 反之则不隐藏信息
+    // $("#admin").click(function () {
+    //     if ($(admin).prop("checked")) {
+    //         $("#roleDiv").addClass("hidden")
+    //     } else {
+    //         $("#roleDiv").removeClass("hidden")
+    //     }
+    // })
+    // $(function () {
+    //     if ($(admin).prop("checked")) {
+    //         $("#roleDiv").addClass("hidden")
+    //     } else {
+    //         $("#roleDiv").removeClass("hidden")
+    //     }
+    // })
+    //
+    // $("#editForm").bootstrapValidator({
+    //     feedbackIcons: { // 图标
+    //         valid: 'glyphicon glyphicon-ok',
+    //         invalid: 'glyphicon glyphicon-remove',
+    //         validating: 'glyphicon glyphicon-refresh'
+    //     },
+    //     fields: { // 配置要验证的字段
+    //         username: {
+    //             validators: { // 验证的规则
+    //                 notEmpty: { // 不能为空
+    //                     message: "用户名必填" // 错误时的提示信息
+    //                 },
+    //                 stringLength: { // 字符串的长度范围
+    //                     min: 1,
+    //                     max: 8
+    //                 },
+    //                 different: {
+    //                     field: 'password,repassword',
+    //                     message: '用户名不能与密码相同'
+    //                 },
+    //                 remote: {
+    //                     type: 'POST',
+    //                     url: '/employee/checkUsername',
+    //                     message: "用户名已存在"
+    //                 }
+    //             }
+    //         },
+    //         name: {
+    //             validators: { // 验证的规则
+    //                 notEmpty: { // 不能为空
+    //                     message: "姓名必填" // 错误时的提示信息
+    //                 },
+    //                 stringLength: { // 字符串的长度范围
+    //                     min: 1,
+    //                     max: 5
+    //                 }
+    //             }
+    //         },
+    //         password: {
+    //             validators: {
+    //                 notEmpty: { // 不能为空
+    //                     message: "密码必填" // 错误时的提示信息
+    //                 },
+    //             }
+    //         },
+    //         repassword: {
+    //             validators: {
+    //                 notEmpty: { // 不能为空
+    //                     message: "密码必填" // 错误时的提示信息
+    //                 },
+    //                 identical: {// 两个字段的值必须相同
+    //                     field: 'password',
+    //                     message: '两次输入的密码必须相同'
+    //                 },
+    //             }
+    //         },
+    //         email: {
+    //             validators: {
+    //                 emailAddress: {} // 邮箱格式
+    //             }
+    //         },
+    //         age: {
+    //             validators: {
+    //                 between: { // 数字的范围
+    //                     min: 18,
+    //                     max: 60
+    //                 }
+    //             }
+    //         }
+    //     }
+    // }).on('success.form.bv', function (e) {
+    //     // 阻止表单提交
+    //     e.preventDefault();
+    //     $('.selfRoles > option').prop('selected', 'true');
+    //     // TODO 这里可以改成用异步的方式提交表单
+    //     var employee = $("#editForm").serialize();
+    //     $.post(
+    //         '/employee/saveOrUpdate',
+    //         employee,
+    //         function (data) {
+    //             if (data.success) {
+    //                 location.href = "/employee/list"
+    //             } else {
+    //                 Swal.fire({
+    //                     title: data.msg,
+    //                     icon: 'warning',
+    //                 })
+    //             }
+    //         }
+    //     )
+    // });
+</script>
+</body>
+</html>

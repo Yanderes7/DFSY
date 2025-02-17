@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.synu.mapper.SelectedCourseStudentMapper" >
+  <resultMap id="BaseResultMap" type="cn.synu.domain.SelectedCourseStudent" >
+    <id column="id" property="id" />
+    <result column="c_name" property="c_name" />
+    <result column="c_type" property="c_type" />
+    <result column="c_hour" property="c_hour" />
+    <result column="t_name" property="t_name" />
+    <result column="t_title" property="t_title" />
+    <result column="classroom" property="classroom" />
+    <result column="s_id" property="s_id" />
+    <result column="t_id" property="t_id" />
+    <result column="c_id" property="c_id" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" >
+    delete
+    from selected_course_student
+    where id = #{id}
+  </delete>
+  <delete id="deleteByCourseId">
+    delete
+    from selected_course_student
+    where c_id = #{c_id}
+  </delete>
+  <delete id="deleteByCid">
+    delete
+    from c_t_cr
+    where c_id = #{c_id}
+  </delete>
+  <delete id="deleteByCidAndTid">
+    delete
+    from c_t_cr
+    where c_id = #{c_id} and t_id = #{t_id}
+  </delete>
+  <delete id="deleteByTid">
+    delete
+    from selected_course_student
+    where t_id = #{t_id}
+  </delete>
+    <delete id="deleteBySid">
+      delete
+      from selected_course_student
+      where s_id = #{id}
+    </delete>
+    <insert id="insert" useGeneratedKeys="true" keyProperty="id" >
+    insert into selected_course_student (c_name, c_type, c_hour, t_name, t_title, classroom, s_id ,t_id , c_id)
+    values (#{c_name}, #{c_type}, #{c_hour}, #{t_name}, #{t_title}, #{classroom}, #{s_id} , #{t_id} , #{c_id})
+  </insert>
+  <update id="updateByPrimaryKey" >
+    update selected_course_student
+    set c_name = #{c_name},
+      c_type = #{c_type},
+      c_hour = #{c_hour},
+      t_name = #{t_name},
+      t_title = #{t_title},
+      classroom = #{classroom},
+      s_id = #{s_id},
+      t_id = #{t_id},
+      c_id = #{c_id}
+    where id = #{id}
+  </update>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" >
+    select id, c_name, c_type, c_hour, t_name, t_title, classroom, s_id ,t_id ,c_id
+    from selected_course_student
+    where id = #{id}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap" >
+    select id, c_name, c_type, c_hour, t_name, t_title, classroom, s_id ,t_id ,c_id
+    from selected_course_student
+  </select>
+  <select id="selectByStu_ID" resultType="cn.synu.domain.SelectedCourseStudent">
+    select id, c_name, c_type, c_hour, t_name, t_title, classroom, s_id ,t_id ,c_id
+    from selected_course_student
+    where s_id = #{stu_id}
+  </select>
+  <select id="selectByStu_ID_pageinfo" resultType="cn.synu.domain.SelectedCourseStudent">
+    select id, c_name, c_type, c_hour, t_name, t_title, classroom, s_id , t_id ,c_id
+    from selected_course_student
+    where s_id = #{stu_id}
+  </select>
+  <select id="selectByTea_ID" resultType="cn.synu.domain.SelectedCourseStudent">
+    select id, c_name, c_type, c_hour, t_name, t_title, classroom, s_id , t_id ,c_id
+    from selected_course_student
+    where t_id = #{t_id}
+  </select>
+  <select id="selectBySidAndTid" resultType="java.lang.Long">
+    select cr_id
+    from c_t_cr
+    where c_id = #{c_id} and t_id = #{t_id}
+  </select>
+  <select id="selectByT_ID" resultType="cn.synu.domain.SelectedCourseStudent">
+    select id, c_name, c_type, c_hour, t_name, t_title, classroom, s_id , t_id ,c_id
+    from selected_course_student
+    where t_id = #{t_id}
+  </select>
+
+
+</mapper>

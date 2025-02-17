@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>狼途汽车门店管理平台</title>
+</head>
+<body class="hold-transition skin-black sidebar-mini">
+    <div th:replace="common/fragment :: link"></div>
+    <div class="wrapper">
+        <div th:replace="common/fragment :: navbar"></div>
+        <div th:replace="common/fragment :: menu"></div>
+        <div class="content-wrapper">
+            <section class="content">
+                <div class="success-page">
+                    <h2 class="headline text-green+"></h2>
+                    <div class="error-content">
+                        <h3><i class="fa text-green"></i> 欢迎您登录狼途汽车门店管理平台 </h3>
+                        <p>请选择您需要的功能！</p>
+                    </div>
+                </div>
+            </section>
+        </div>
+        <div th:replace="common/fragment :: footer"></div>
+    </div>
+</body>
+</html>

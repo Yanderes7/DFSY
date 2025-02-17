@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>学生信息</title>
+</head>
+<body class="hold-transition skin-black sidebar-mini">
+<div th:replace="common/fragment :: link"></div>
+<div class="wrapper">
+    <div th:replace="common/fragment :: navbar"></div>
+    <div th:replace="common/fragment :: menu"></div>
+    <div class="content-wrapper">
+        <section class="content-header">
+            <h1>学生信息编辑</h1>
+        </section>
+        <section class="content">
+            <div class="box">
+                <form class="form-horizontal" action="/student/saveOrUpdate" method="post" id="editForm">
+                    <input type="hidden" name="id" th:value="${student?.id}">
+
+                    <div class="form-group" style="margin-top: 10px;">
+                        <label class="col-sm-2 control-label">用户名：</label>
+                        <div class="col-sm-6">
+                            <input disabled type="text" class="form-control" name="username" placeholder="请输入用户名"
+                                   th:value="${student?.username}">
+                        </div>
+                    </div>
+
+                    <div class="form-group" style="margin-top: 10px;">
+                        <label class="col-sm-2 control-label">密码：</label>
+                        <div class="col-sm-6">
+                            <input type="text" class="form-control" name="password" placeholder="请输入密码"
+                                   th:value="${student?.password}">
+                        </div>
+                    </div>
+
+                    <div class="form-group" style="margin-top: 10px;">
+                        <label class="col-sm-2 control-label">真实姓名：</label>
+                        <div class="col-sm-6">
+                            <input type="text" class="form-control" name="name" placeholder="请输入真实姓名"
+                                   th:value="${student?.name}">
+                        </div>
+                    </div>
+
+                    <!--<div class="form-group" style="margin-top: 10px;">-->
+                    <!--    <label class="col-sm-2 control-label">学号：</label>-->
+                    <!--    <div class="col-sm-6">-->
+                    <!--        <input type="text" class="form-control" name="snum" placeholder="请输入学号"-->
+                    <!--               th:value="${student?.snum}">-->
+                    <!--    </div>-->
+                    <!--</div>-->
+
+                    <!--<div class="form-group">-->
+                    <!--    <label for="sex" class="col-sm-2 control-label">性别：</label>-->
+                    <!--    <div class="col-sm-6">-->
+                    <!--        <input type="text" class="form-control" id="sex" name="sex" placeholder="请输入性别"-->
+                    <!--               th:value="${student?.sex}">-->
+                    <!--    </div>-->
+                    <!--</div>-->
+
+                    <div class="form-group">
+                        <label for="age" class="col-sm-2 control-label">年龄：</label>
+                        <div class="col-sm-6">
+                            <input type="text" class="form-control" id="age" name="age" placeholder="请输入年龄"
+                                   th:value="${student?.age}">
+                        </div>
+                    </div>
+
+                    <!--<div class="form-group">-->
+                    <!--    <label for="dept" class="col-sm-2 control-label">学院：</label>-->
+                    <!--    <div class="col-sm-6">-->
+                    <!--        <input type="text" class="form-control" id="dept" name="dept" placeholder="请输入学院名称"-->
+                    <!--               th:value="${student?.dept}">-->
+                    <!--    </div>-->
+                    <!--</div>-->
+
+                    <!--<div class="form-group">-->
+                    <!--    <label for="magor" class="col-sm-2 control-label">专业：</label>-->
+                    <!--    <div class="col-sm-6">-->
+                    <!--        <input type="text" class="form-control" id="magor" name="magor" placeholder="请输入专业名称"-->
+                    <!--               th:value="${student?.magor}">-->
+                    <!--    </div>-->
+                    <!--</div>-->
+
+                    <div class="form-group">
+                        <label for="t_number" class="col-sm-2 control-label">联系方式：</label>
+                        <div class="col-sm-6">
+                            <input type="text" class="form-control" id="t_number" name="t_number" placeholder="请输入联系方式"
+                                   th:value="${student?.t_number}">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="email" class="col-sm-2 control-label">电子邮箱：</label>
+                        <div class="col-sm-6">
+                            <input type="text" class="form-control" id="email" name="email" placeholder="请输入电子邮箱"
+                                   th:value="${student?.email}">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="address" class="col-sm-2 control-label">地址：</label>
+                        <div class="col-sm-6">
+                            <input type="text" class="form-control" id="address" name="address" placeholder="请输入地址"
+                                   th:value="${student?.address}">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-sm-offset-1 col-sm-6">
+                            <button type="submit" class="btn btn-primary btn-submit">保存</button>
+                            <a href="javascript:window.history.back()" class="btn btn-danger">取消</a>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </section>
+    </div>
+    <div th:replace="common/fragment :: footer"></div>
+</div>
+<script>
+    $("#editForm").bootstrapValidator({
+        feedbackIcons: { // 图标
+            valid: 'glyphicon glyphicon-ok',
+            invalid: 'glyphicon glyphicon-remove',
+            validating: 'glyphicon glyphicon-refresh'
+        },
+        fields: { // 配置要验证的字段
+            username: {
+                validators: { // 验证的规则
+                    notEmpty: { // 不能为空
+                        message: "用户名必填" // 错误时的提示信息
+                    },
+                    stringLength: { // 字符串的长度范围
+                        min: 1,
+                        max: 8
+                    },
+                    different: {
+                        field: 'password,repassword',
+                        message: '用户名不能与密码相同'
+                    },
+                    remote: {
+                        type: 'POST',
+                        url: '/student/checkUsername',
+                        message: "用户名已存在"
+                    }
+                }
+            },
+            password: {
+                validators: {
+                    notEmpty: { // 不能为空
+                        message: "密码必填" // 错误时的提示信息
+                    },
+                }
+            },
+            name: {
+                validators: { // 验证的规则
+                    notEmpty: { // 不能为空
+                        message: "姓名必填" // 错误时的提示信息
+                    },
+                    stringLength: { // 字符串的长度范围
+                        min: 1,
+                        max: 5
+                    }
+                }
+            },
+            age: {
+                validators: {
+                    between: { // 数字的范围
+                        min: 18,
+                        max: 24
+                    },
+                    notEmpty: { // 不能为空
+                        message: "年龄不能为空" // 错误时的提示信息
+                    },
+                }
+            },
+            t_number: {
+                validators: { // 验证的规则
+                    notEmpty: { // 不能为空
+                        message: "联系方式不能为空" // 错误时的提示信息
+                    },
+                }
+            },
+            email: {
+                validators: {
+                    emailAddress: {}, // 邮箱格式
+                    notEmpty: { // 不能为空
+                        message: "邮箱不能为空" // 错误时的提示信息
+                    },
+                }
+            },
+            address: {
+                validators: { // 验证的规则
+                    notEmpty: { // 不能为空
+                        message: "居住地址不能为空" // 错误时的提示信息
+                    },
+                }
+            },
+        }
+    }).on('success.form.bv', function (e) {
+        // 阻止表单提交
+        e.preventDefault();
+        // TODO 这里可以改成用异步的方式提交表单
+        var student = $("#editForm").serialize();
+        $.post(
+            '/student/saveOrUpdate',
+            student,
+            function (data) {
+                if (data.success) {
+                    Swal.fire({
+                        title: '您已保存成功！',
+                        icon: 'success',
+                    }).then((result) => {
+                        if(result.value) {
+                            location.href = "/student/individual"
+                        }
+                    });
+                } else {
+                    Swal.fire({
+                        title: data.msg,
+                        icon: 'warning',
+                    })
+                }
+            }
+        )
+    });
+</script>
+</body>
+</html>

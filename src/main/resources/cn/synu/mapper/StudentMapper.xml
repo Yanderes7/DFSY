@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.synu.mapper.StudentMapper" >
+  <resultMap id="BaseResultMap" type="cn.synu.domain.Student" >
+    <id column="id" property="id" />
+    <result column="username" property="username" />
+    <result column="password" property="password" />
+    <result column="name" property="name" />
+    <result column="age" property="age" />
+    <result column="dept" property="dept" />
+    <result column="magor" property="magor" />
+    <result column="t_number" property="t_number" />
+    <result column="email" property="email" />
+    <result column="address" property="address" />
+    <result column="sex" property="sex" />
+    <result column="snum" property="snum" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" >
+    delete from student
+    where id = #{id}
+  </delete>
+    <delete id="deleteByIdForS_C_S">
+      delete from selected_course_student
+      where id = #{id}
+    </delete>
+    <insert id="insert" useGeneratedKeys="true" keyProperty="id" >
+    insert into student (username, password, name, age, dept, magor, t_number, 
+      email, address, sex, snum)
+    values (#{username}, #{password}, #{name}, #{age}, #{dept}, #{magor}, #{t_number}, 
+      #{email}, #{address}, #{sex}, #{snum})
+  </insert>
+  <update id="updateByPrimaryKey" >
+    update student
+    set
+      password = #{password},
+      name = #{name},
+      age = #{age},
+      t_number = #{t_number},
+      email = #{email},
+      address = #{address}
+    where id = #{id}
+  </update>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" >
+    select id, username, password, name, age, dept, magor, t_number, email, address, 
+    sex, snum
+    from student
+    where id = #{id}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap" >
+    select id, username, password, name, age, dept, magor, t_number, email, address, 
+    sex, snum
+    from student
+  </select>
+    <select id="selByUsername" resultType="java.lang.Boolean">
+      select count(*)
+      from student
+      where username = #{username}
+    </select>
+  <select id="selectAllStu" resultType="cn.synu.domain.Student">
+    select id, username, password, name, age, dept, magor, t_number, email, address,
+           sex, snum
+    from student
+    <where>
+      <if test="keyword != null and keyword != ''">
+        and (name like concat ('%',#{keyword},'%'))
+      </if>
+    </where>
+  </select>
+  <select id="selStuByStuIDS" resultType="cn.synu.domain.Student">
+    select id, username, password, name, age, dept, magor, t_number, email, address,
+           sex, snum
+    from student
+    <where>
+<!--      <if test="keyword != null and keyword != ''">-->
+<!--        and (name like concat ('%',#{keyword},'%'))-->
+<!--      </if>-->
+      <foreach collection="stuIDs" item="id" open="id in (" close=")" separator=",">
+        #{id}
+      </foreach>
+    </where>
+  </select>
+    <select id="selectForList" resultType="cn.synu.domain.Student">
+      select id, username, password, name, age, dept, magor, t_number, email, address,
+      sex, snum
+      from student
+      <where>
+        <if test="keyword != null and keyword != ''">
+          and (name like concat ('%',#{keyword},'%'))
+        </if>
+      </where>
+    </select>
+    <select id="selByUsernameAndPassword" resultType="cn.synu.domain.Student">
+      select id, username, password, name, age, dept, magor, t_number, email, address,
+             sex, snum
+      from student
+      where username = #{username} and password = #{password}
+    </select>
+</mapper>

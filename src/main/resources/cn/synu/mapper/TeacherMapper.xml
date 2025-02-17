@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.synu.mapper.TeacherMapper" >
+  <resultMap id="BaseResultMap" type="cn.synu.domain.Teacher" >
+    <id column="id" property="id" />
+    <result column="tnum" property="tnum" />
+    <result column="username" property="username" />
+    <result column="password" property="password" />
+    <result column="name" property="name" />
+    <result column="age" property="age" />
+    <result column="address" property="address" />
+    <result column="sex" property="sex" />
+    <result column="email" property="email" />
+    <result column="p_title" property="p_title" />
+    <result column="dept" property="dept" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" >
+    delete from teacher
+    where id = #{id}
+  </delete>
+  <delete id="deleteC_t_CrByTid">
+    delete
+    from c_t_cr
+    where t_id = #{t_id}
+  </delete>
+  <insert id="insert" useGeneratedKeys="true" keyProperty="id" >
+    insert into teacher (tnum, username, password, name, age, address, sex, email, 
+      p_title, dept)
+    values (#{tnum}, #{username}, #{password}, #{name}, #{age}, #{address}, #{sex}, #{email}, 
+      #{p_title}, #{dept})
+  </insert>
+  <update id="updateByPrimaryKey" >
+    update teacher
+    set
+      password = #{password},
+      name = #{name},
+      age = #{age},
+      address = #{address},
+      sex = #{sex},
+      email = #{email}
+    where id = #{id}
+  </update>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" >
+    select id, tnum, username, password, name, age, address, sex, email, p_title, dept
+    from teacher
+    where id = #{id}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap" >
+    select id, tnum, username, password, name, age, address, sex, email, p_title, dept
+    from teacher
+  </select>
+  <select id="selByUsername" resultType="java.lang.Boolean">
+    select count(*)
+    from teacher
+    where username = #{username}
+  </select>
+  <select id="selectByPrimaryKeyForeach" resultType="cn.synu.domain.Teacher">
+    select id, tnum, username, password, name, age, address, sex, email, p_title, dept
+    from teacher
+    <where>
+      <foreach collection="t_ids" item="id" open="id in (" separator="," close=")">
+        #{id}
+      </foreach>
+    </where>
+  </select>
+    <select id="selectForList" resultType="cn.synu.domain.Teacher">
+      select id, tnum, username, password, name, age, address, sex, email, p_title, dept
+      from teacher
+      <where>
+        <if test="keyword != null and keyword != ''">
+          and (name like concat ('%',#{keyword},'%'))
+        </if>
+      </where>
+    </select>
+  <select id="selectC_T_CrForT_id" resultType="java.lang.Long">
+    select cr_id
+    from c_t_cr
+    where t_id = #{id}
+  </select>
+  <select id="selectC_T_CrListForCR_ID" resultType="cn.synu.domain.Classroom">
+    select *
+    from classroom
+    where id in
+    <foreach collection="classRoomIds" item="id" open="(" separator="," close=")">
+      #{id}
+    </foreach>
+  </select>
+    <select id="selByUsernameAndPassword" resultMap="BaseResultMap">
+      select id, tnum, username, password, name, age, address, sex, email, p_title, dept
+      from teacher
+      where username = #{username} and password = #{password};
+    </select>
+
+    <update id="updateByAdmin">
+    update teacher
+    set
+      tnum = #{tnum},
+      username = #{username},
+      p_title = #{p_title},
+      dept = #{dept},
+      password = #{password},
+      name = #{name},
+      age = #{age},
+      address = #{address},
+      sex = #{sex},
+      email = #{email}
+    where id = #{id}
+  </update>
+</mapper>

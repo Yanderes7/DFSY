@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.synu.mapper.CourseMapper" >
+  <resultMap id="BaseResultMap" type="cn.synu.domain.Course" >
+    <id column="id" property="id" />
+    <result column="cname" property="cname" />
+    <result column="type" property="type" />
+    <result column="class_hour" property="class_hour" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" >
+    delete from course
+    where id = #{id}
+  </delete>
+  <insert id="insert" useGeneratedKeys="true" keyProperty="id" >
+    insert into course (cname, type, class_hour)
+    values (#{cname}, #{type}, #{class_hour})
+  </insert>
+  <insert id="insertForC_T_CR">
+    insert into c_t_cr (c_id, t_id, cr_id)
+    values (#{c_id}, #{t_id}, #{cr_id})
+  </insert>
+  <update id="updateByPrimaryKey" >
+    update course
+    set
+      type = #{type},
+      class_hour = #{class_hour}
+    where id = #{id}
+  </update>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" >
+    select id, cname, type, class_hour
+    from course
+    where id = #{id}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap" >
+    select id, cname, type, class_hour
+    from course
+  </select>
+
+  <select id="selForList" resultMap="BaseResultMap">
+    select id,cname, type, class_hour
+    from course
+    <where>
+      <if test="keyword != null and keyword != ''">
+        and (cname like concat ('%',#{keyword},'%'))
+      </if>
+    </where>
+  </select>
+
+  <select id="selectedByID" resultMap="getResultMap">
+    select c.id, c.cname, c.type, c.class_hour ,
+           t.id tea_id, t.tnum tea_tnum, t.username tea_username, t.password tea_password, t.name tea_name, t.age tea_age, t.address tea_address, t.sex tea_sex, t.email tea_email, t.p_title tea_p_title, t.dept tea_dept
+    from course c
+           join c_t_cr ctcr
+                on c.id = c_id
+           join teacher t
+                on ctcr.t_id = t.id
+    where c.id = #{id}
+  </select>
+
+    <select id="selected" resultMap="getResultMap">
+      select c.id, c.cname, c.type, c.class_hour ,
+      t.id tea_id, t.tnum tea_tnum, t.username tea_username, t.password tea_password, t.name tea_name,
+             t.age tea_age, t.address tea_address, t.sex tea_sex, t.email tea_email, t.p_title tea_p_title, t.dept tea_dept
+      from course c
+      join c_t_cr ctcr
+      on c.id = c_id
+      join teacher t
+      on ctcr.t_id = t.id
+      <where>
+        <if test="keyword != null and keyword != ''">
+          and (c.cname like concat ('%',#{keyword},'%'))
+        </if>
+      </where>
+  </select>
+  <select id="selC_T_CR" resultType="cn.synu.domain.Classroom">
+    select * from classroom where id = (
+      select cr_id from c_t_cr where c_id = #{c_id} and t_id = #{t_id}
+    )
+  </select>
+  <select id="selectedByCourseIDForClassRoom_ID" resultType="java.lang.Long">
+    select cr_id
+    from c_t_cr
+    where c_id = #{id}
+  </select>
+  <select id="selCourseByTeacher" resultMap="getResultMap">
+    select c.id, c.cname, c.type, c.class_hour ,
+           t.id tea_id, t.tnum tea_tnum, t.username tea_username, t.password tea_password, t.name tea_name,
+           t.age tea_age, t.address tea_address, t.sex tea_sex, t.email tea_email, t.p_title tea_p_title, t.dept tea_dept
+    from course c
+           join c_t_cr ctcr
+                on c.id = c_id
+           join teacher t
+                on ctcr.t_id = t.id
+    where c.id = #{id}
+  </select>
+  <select id="checkCname" resultType="java.lang.Boolean">
+    select count(*)
+    from course
+    where cname = #{cname}
+  </select>
+  <select id="selCtdForTid" resultType="java.lang.Long">
+    select t_id
+    from c_t_cr
+    where c_id = #{id}
+  </select>
+  <select id="selT_idByC_id" resultType="java.lang.Long">
+    select t_id
+    from c_t_cr
+    where c_id = #{id}
+  </select>
+
+
+  <resultMap id="getResultMap" type="cn.synu.domain.Course" >
+    <id column="id" property="id" />
+    <result column="cname" property="cname" />
+    <result column="type" property="type" />
+    <result column="class_hour" property="class_hour" />
+    <collection columnPrefix="tea_" property="teachers" javaType="Teacher">
+      <result column="id" property="id"/>
+      <result column="tnum" property="tnum"/>
+      <result column="username" property="username"/>
+      <result column="password" property="password"/>
+      <result column="name" property="name"/>
+      <result column="age" property="age"/>
+      <result column="address" property="address"/>
+      <result column="sex" property="sex"/>
+      <result column="email" property="email"/>
+      <result column="p_title" property="p_title"/>
+      <result column="dept" property="dept"/>
+    </collection>
+  </resultMap>
+</mapper>
