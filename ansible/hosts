@@ -1,0 +1,5 @@
+[simulation]
+simulation.example.com ansible_user=root
+
+[production]
+production.example.com ansible_user=root
