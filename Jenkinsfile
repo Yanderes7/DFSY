@@ -6,7 +6,7 @@ pipeline {
     stages {
         stage('拉取代码') {
             steps {
-                git branch: '${GIT_BRANCH}', url: 'https://github.com/your-repo/vehicle-management-system.git'
+                git branch: '${GIT_BRANCH}', url: 'https://github.com/your-repo/DFSY.git'
             }
         }
         stage('构建项目') {
@@ -22,7 +22,7 @@ pipeline {
                     inventory: 'ansible/hosts',
                     extraVars: [
                         target_env: 'production',
-                        git_repo: 'https://github.com/your-repo/vehicle-management-system.git',
+                        git_repo: 'https://github.com/your-repo/DFSY.git',
                         git_branch: 'master'
                     ]
                 )
