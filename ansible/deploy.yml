@@ -3,6 +3,16 @@
   hosts: "{{ target_env }}"
   become: yes
   tasks:
+    - name: 创建项目目录
+      file:
+        path: "/opt/vehicle-management-system"
+        state: directory
+
+    - name: 上传 JAR 文件
+      copy:
+        src: "target/vehicle-management-system.jar"
+        dest: "/opt/vehicle-management-system/vehicle-management-system.jar"
+
 #    - name: 从 Git 拉取代码
 #      git:
 #        repo: "{{ git_repo }}"
