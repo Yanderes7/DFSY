@@ -4,13 +4,11 @@ pipeline {
         ANSIBLE_HOSTS = 'ansible/hosts'
     }
     stages {
-            stage('查看环境变量') {
-                steps {
+        stage('查看环境变量') {
+            steps {
                     sh 'printenv'  // 打印所有环境变量
-                }
             }
         }
-    stages {
         stage('拉取代码') {
             steps {
                 git branch: '${GIT_BRANCH}', url: 'https://github.com/Yanderes7/DFSY.git'
