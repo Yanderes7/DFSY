@@ -3,16 +3,16 @@
   hosts: "{{ target_env }}"
   become: yes
   tasks:
-    - name: 从 Git 拉取代码
-      git:
-        repo: "{{ git_repo }}"
-        dest: "/opt/vehicle-management-system"
-        version: "{{ git_branch }}"
-
-    - name: 构建项目
-      command: "mvn clean package"
-      args:
-        chdir: "/opt/vehicle-management-system"
+#    - name: 从 Git 拉取代码
+#      git:
+#        repo: "{{ git_repo }}"
+#        dest: "/opt/vehicle-management-system"
+#        version: "{{ git_branch }}"
+#
+#    - name: 构建项目
+#      command: "mvn clean package"
+#      args:
+#        chdir: "/opt/vehicle-management-system"
 
     - name: 启动服务
       command: "java -jar target/vehicle-management-system.jar"

@@ -1,5 +1,5 @@
 [simulation]
-simulation.example.com ansible_user=root
+117.72.124.99 ansible_user=root
 
 [production]
-production.example.com ansible_user=root
+117.72.124.99 ansible_user=root
