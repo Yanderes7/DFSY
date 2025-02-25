@@ -3,6 +3,9 @@ pipeline {
     environment {
         ANSIBLE_HOSTS = 'ansible/hosts'
     }
+    parameters {
+        string(name: 'GIT_BRANCH', defaultValue: 'master', description: 'Git branch to build')
+    }
     stages {
         stage('查看环境变量') {
             steps {
@@ -11,7 +14,7 @@ pipeline {
         }
         stage('拉取代码') {
             steps {
-                git branch: '${GIT_BRANCH}', url: 'https://github.com/Yanderes7/DFSY.git'
+                git branch: params.GIT_BRANCH, url: 'https://github.com/Yanderes7/DFSY.git'
             }
         }
         stage('构建项目') {
