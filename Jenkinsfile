@@ -6,6 +6,10 @@ pipeline {
     parameters {
         string(name: 'GIT_BRANCH', defaultValue: 'master', description: 'Git branch to build')
     }
+    tools {
+        jdk 'OpenJDK 8'  // 声明使用的 JDK
+        maven 'Maven 3.9.5'  // 声明使用的 Maven
+    }
     stages {
         stage('查看环境变量') {
             steps {
