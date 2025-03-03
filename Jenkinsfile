@@ -28,22 +28,25 @@ pipeline {
             }
         }
 
-        stage('Deploy') {
-            steps {
-                sh '''
-                    ansible-playbook ansible/deploy.yml --private-key /var/jenkins_home/.ssh/id_rsa -u root -e "key1=value1 key2=value2"
-                '''
-            }
-        }
+//         stage('Deploy') {
+//             steps {
+//                 sh '''
+//                     ansible-playbook ansible/deploy.yml --private-key /var/jenkins_home/.ssh/id_rsa -u root -e "key1=value1 key2=value2"
+//                 '''
+//             }
+//         }
 
 
         stage('部署到生产环境') {
             steps {
+                sh '''
+                    ansible-playbook ansible/deploy.yml --private-key /var/jenkins_home/.ssh/id_rsa -u root -e "key1=value1 key2=value2"
+                '''
                 unstash 'jar'
                 ansiblePlaybook (
                     playbook: 'ansible/deploy.yml',
                     inventory: 'ansible/hosts',
-                    credentialsId: '4421c334-c7a8-4baa-83ad-6da212a71da9',
+//                     credentialsId: '4421c334-c7a8-4baa-83ad-6da212a71da9',
                     extraVars: [
                         target_env: 'production'
 //                         git_repo: 'https://github.com/Yanderes7/DFSY.git',
