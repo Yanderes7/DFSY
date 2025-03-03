@@ -26,6 +26,6 @@
 
     - name: 启动服务
       command: "java -jar /opt/vehicle-management-system/synu_xh-0.0.1-SNAPSHOT.jar"
-      args:
-        chdir: "/opt/vehicle-management-system"
+#      args:
+#        chdir: "/opt/vehicle-management-system"
       become: no
