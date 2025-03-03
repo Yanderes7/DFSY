@@ -32,7 +32,7 @@ pipeline {
             steps {
                 sshagent(['4421c334-c7a8-4baa-83ad-6da212a71da9']) {
                     sh '''
-                        ansible-playbook ansible/deploy.yml -i ansible/hosts -u root -e ********
+                        ansible-playbook ansible/deploy.yml -u root -e "key1=value1 key2=value2"
                     '''
                 }
             }
