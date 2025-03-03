@@ -31,7 +31,7 @@ pipeline {
         stage('Deploy') {
             steps {
                 sh '''
-                        ansible-playbook ansible/deploy.yml -i /var/jenkins_home/.ssh/id_rsa -u root -e ********
+                        ansible-playbook ansible/deploy.yml -i /var/jenkins_home/.ssh/id_rsa -u root -e "key1=value1 key2=value2"
                     '''
             }
         }
