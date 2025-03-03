@@ -42,7 +42,7 @@ pipeline {
             steps {
                 sh '''
                     # 使用外部私钥文件运行 Ansible
-                    ansible-playbook ansible/deploy.yml -i ansible/hosts --private-key $SSH_PRIVATE_KEY -u root -e
+                    ansible-playbook ansible/deploy.yml -i ansible/hosts --private-key /path/to/private-key -u root -e "target_env=production"
                 '''
                 unstash 'jar'
                 ansiblePlaybook (
