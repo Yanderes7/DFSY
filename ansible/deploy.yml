@@ -25,7 +25,7 @@
 #        chdir: "/opt/vehicle-management-system"
 
     - name: 启动服务
-      command: "java -jar /opt/vehicle-management-system/synu_xh-0.0.1-SNAPSHOT.jar"
+      command: "nohup java -jar /opt/vehicle-management-system/synu_xh-0.0.1-SNAPSHOT.jar > /dev/null 2>&1 &"
 #      args:
 #        chdir: "/opt/vehicle-management-system"
       become: no
