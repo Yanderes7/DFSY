@@ -30,9 +30,11 @@ pipeline {
 
         stage('Deploy') {
             steps {
-                sh '''
-                        ansible-playbook ansible/deploy.yml -i /var/jenkins_home/.ssh/id_rsa -u root -e "key1=value1 key2=value2"
+                sshagent(['4421c334-c7a8-4baa-83ad-6da212a71da9']) {
+                    sh '''
+                        ansible-playbook ansible/deploy.yml -i ansible/hosts -u root -e ********
                     '''
+                }
             }
         }
 
@@ -42,7 +44,7 @@ pipeline {
                 ansiblePlaybook (
                     playbook: 'ansible/deploy.yml',
                     inventory: 'ansible/hosts',
-                    credentialsId: '4421c334-c7a8-4baa-83ad-6da212a71da9',
+//                     credentialsId: '4421c334-c7a8-4baa-83ad-6da212a71da9',
                     extraVars: [
                         target_env: 'production'
 //                         git_repo: 'https://github.com/Yanderes7/DFSY.git',

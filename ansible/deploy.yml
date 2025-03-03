@@ -1,6 +1,6 @@
 ---
 - name: 部署车辆管理系统
-  hosts: "{{ target_env }}"
+#  hosts: "{{ target_env }}"
   become: yes
   tasks:
     - name: 创建项目目录
