@@ -43,7 +43,7 @@ pipeline {
                 ansiblePlaybook (
                     playbook: 'ansible/deploy.yml',
                     inventory: 'ansible/hosts',
-//                     credentialsId: '4421c334-c7a8-4baa-83ad-6da212a71da9',
+                    credentialsId: '4421c334-c7a8-4baa-83ad-6da212a71da9',
                     extraVars: [
                         target_env: 'production'
 //                         git_repo: 'https://github.com/Yanderes7/DFSY.git',
