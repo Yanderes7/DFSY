@@ -2,6 +2,7 @@ pipeline {
     agent any
     environment {
         ANSIBLE_HOSTS = 'ansible/hosts'
+        SH_PRIVATE_KEY = '/var/jenkins_home/.ssh/id_rsa'
     }
     parameters {
         string(name: 'GIT_BRANCH', defaultValue: 'master', description: 'Git branch to build')
@@ -40,7 +41,8 @@ pipeline {
         stage('部署到生产环境') {
             steps {
                 sh '''
-                    ansible-playbook ansible/deploy.yml --private-key /var/jenkins_home/.ssh/id_rsa -u root -e "key1=value1 key2=value2"
+                    # 使用外部私钥文件运行 Ansible
+                    ansible-playbook ansible/deploy.yml -i ansible/hosts --private-key $SSH_PRIVATE_KEY -u root -e
                 '''
                 unstash 'jar'
                 ansiblePlaybook (
