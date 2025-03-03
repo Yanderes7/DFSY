@@ -10,8 +10,8 @@
 
     - name: 上传 JAR 文件
       copy:
-        src: "target/vehicle-management-system.jar"
-        dest: "/opt/vehicle-management-system/vehicle-management-system.jar"
+        src: "target/synu_xh-0.0.1-SNAPSHOT.jar"
+        dest: "/opt/vehicle-management-system/synu_xh-0.0.1-SNAPSHOT.jar"
 
 #    - name: 从 Git 拉取代码
 #      git:
@@ -25,7 +25,7 @@
 #        chdir: "/opt/vehicle-management-system"
 
     - name: 启动服务
-      command: "java -jar target/vehicle-management-system.jar"
+      command: "java -jar target/synu_xh-0.0.1-SNAPSHOT.jar"
       args:
         chdir: "/opt/vehicle-management-system"
       become: no
