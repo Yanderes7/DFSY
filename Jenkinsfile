@@ -30,7 +30,7 @@ pipeline {
 
         stage('Deploy') {
             steps {
-                sshagent(['my-ssh-key']) {
+                sshagent(['4421c334-c7a8-4baa-83ad-6da212a71da9']) {
                     sh '''
                         ansible-playbook ansible/deploy.yml -i ansible/hosts -u root -e ********
                     '''
