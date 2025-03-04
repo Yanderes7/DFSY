@@ -42,4 +42,4 @@
 
     - name: 输出服务状态
       debug:
-        msg: "服务已启动" if service_status.rc == 0 else "服务未启动"
+        msg: '{{ "服务已启动" if service_status.rc == 0 else "服务未启动" }}'
