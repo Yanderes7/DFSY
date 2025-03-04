@@ -25,10 +25,10 @@
 #        chdir: "/opt/vehicle-management-system"
 
     - name: 启动服务
-      command:  |
-    sudo -u jenkins at now << EOF
-    java -jar /opt/vehicle-management-system/synu_xh-0.0.1-SNAPSHOT.jar > /opt/vehicle-management-system/service.log 2>&1
-    EOF
+      command: |
+        sudo -u jenkins at now << EOF
+        java -jar /opt/vehicle-management-system/synu_xh-0.0.1-SNAPSHOT.jar > /opt/vehicle-management-system/service.log 2>&1
+        EOF
 #      args:
 #        chdir: "/opt/vehicle-management-system"
       become: no
