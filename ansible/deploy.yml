@@ -32,7 +32,7 @@
 
     - name: 启动服务
       command: "java -jar /opt/vehicle-management-system/synu_xh-0.0.1-SNAPSHOT.jar > /opt/vehicle-management-system/service.log 2>&1"
-      async: 600  # 设置最大运行时间
+      async: 120  # 设置最大运行时间
       poll: 0     # 立即返回，不等待任务完成
 
     - name: 检查服务是否运行
