@@ -13,6 +13,30 @@
         src: "/var/jenkins_home/workspace/vehicle-management-system/target/synu_xh-0.0.1-SNAPSHOT.jar"
         dest: "/opt/vehicle-management-system/synu_xh-0.0.1-SNAPSHOT.jar"
 
+
+    - name: 启动服务
+      shell: "nohup java -jar /opt/vehicle-management-system/synu_xh-0.0.1-SNAPSHOT.jar > /opt/vehicle-management-system/service.log 2>&1 &"
+      async: 120  # 设置最大运行时间
+      poll: 0     # 立即返回，不等待任务完成
+
+    - name: 检查服务是否运行
+      shell: "pgrep -f 'java -jar /opt/vehicle-management-system/synu_xh-0.0.1-SNAPSHOT.jar'"
+      register: service_status
+      failed_when: service_status.rc != 0  # 如果 rc 不等于 0，任务失败
+
+    - name: 输出服务状态
+      debug:
+        msg: '服务已启动'
+
+    - name: 确保服务启动成功
+      fail:
+        msg: "服务未启动，请检查日志文件：/opt/vehicle-management-system/service.log"
+      when: service_status.rc != 0  # 如果 rc 不等于 0，任务失败
+
+
+
+
+
 #    - name: 从 Git 拉取代码
 #      git:
 #        repo: "{{ git_repo }}"
@@ -30,16 +54,16 @@
 ##        chdir: "/opt/vehicle-management-system"
 #      become: no
 
-    - name: 启动服务
-      command: "java -jar /opt/vehicle-management-system/synu_xh-0.0.1-SNAPSHOT.jar > /opt/vehicle-management-system/service.log 2>&1"
-      async: 120  # 设置最大运行时间
-      poll: 0     # 立即返回，不等待任务完成
-
-    - name: 检查服务是否运行
-      shell: "pgrep -f 'java -jar /opt/vehicle-management-system/synu_xh-0.0.1-SNAPSHOT.jar'"
-      register: service_status
-      ignore_errors: yes
-
-    - name: 输出服务状态
-      debug:
-        msg: '{{ "服务已启动" if service_status.rc == 0 else "服务未启动" }}'
+#    - name: 启动服务
+#      command: "nohup java -jar /opt/vehicle-management-system/synu_xh-0.0.1-SNAPSHOT.jar > /opt/vehicle-management-system/service.log 2>&1 &"
+#      async: 120  # 设置最大运行时间
+#      poll: 0     # 立即返回，不等待任务完成
+#
+#    - name: 检查服务是否运行
+#      shell: "pgrep -f 'java -jar /opt/vehicle-management-system/synu_xh-0.0.1-SNAPSHOT.jar'"
+#      register: service_status
+#      ignore_errors: yes
+#
+#    - name: 输出服务状态
+#      debug:
+#        msg: '{{ "服务已启动" if service_status.rc == 0 && null else "服务未启动" }}'
