@@ -25,7 +25,7 @@
 #        chdir: "/opt/vehicle-management-system"
 
     - name: 启动服务
-      command: -u jenkins bash -c "echo 'java -jar /opt/vehicle-management-system/synu_xh-0.0.1-SNAPSHOT.jar > /opt/vehicle-management-system/service.log 2>&1' | at now"
+      command: sudo -u jenkins bash -c "echo 'java -jar /opt/vehicle-management-system/synu_xh-0.0.1-SNAPSHOT.jar > /opt/vehicle-management-system/service.log 2>&1' | at now"
 #      args:
 #        chdir: "/opt/vehicle-management-system"
       become: no
