@@ -24,11 +24,22 @@
 #      args:
 #        chdir: "/opt/vehicle-management-system"
 
+#    - name: 启动服务
+#      command: "echo 'java -jar /opt/vehicle-management-system/synu_xh-0.0.1-SNAPSHOT.jar > /opt/vehicle-management-system/service.log 2>&1' | at now"
+##      args:
+##        chdir: "/opt/vehicle-management-system"
+#      become: no
+
     - name: 启动服务
-      command: |
-        sudo -u jenkins at now << EOF
-        java -jar /opt/vehicle-management-system/synu_xh-0.0.1-SNAPSHOT.jar > /opt/vehicle-management-system/service.log 2>&1
-        EOF
-#      args:
-#        chdir: "/opt/vehicle-management-system"
-      become: no
+      command: "java -jar /opt/vehicle-management-system/synu_xh-0.0.1-SNAPSHOT.jar > /opt/vehicle-management-system/service.log 2>&1"
+      async: 600  # 设置最大运行时间
+      poll: 0     # 立即返回，不等待任务完成
+
+    - name: 检查服务是否运行
+      shell: "pgrep -f 'java -jar /opt/vehicle-management-system/synu_xh-0.0.1-SNAPSHOT.jar'"
+      register: service_status
+      ignore_errors: yes
+
+    - name: 输出服务状态
+      debug:
+        msg: "服务已启动" if service_status.rc == 0 else "服务未启动"
