@@ -42,7 +42,8 @@ pipeline {
             steps {
                 script {
                     // 停止旧服务
-                    sh 'pkill -f "java -jar /opt/vehicle-management-system/synu_xh-0.0.1-SNAPSHOT.jar" || true'
+//                     sh 'pkill -f "java -jar /opt/vehicle-management-system/synu_xh-0.0.1-SNAPSHOT.jar" || true'
+                       sh 'sudo lsof -ti :8080 | xargs -r sudo kill -9'
                 }
             }
         }
@@ -83,22 +84,18 @@ pipeline {
         }
 
 
-       stage('检查服务是否启动') {
-           steps {
-               script {
-                   try {
-                       // 检查新服务是否成功启动
-                       def serviceStatus = sh(script: 'ps aux | grep "java -jar /opt/vehicle-management-system/synu_xh-0.0.1-SNAPSHOT.jar" | grep -v grep', returnStatus: true)
-                       if (serviceStatus != 0) {
-                           error("新服务未成功启动，请检查日志：/opt/vehicle-management-system/service.log")
-                       }
-                       echo "新服务已成功启动"
-                   } catch (Exception e) {
-                       error("无法检查服务状态，请检查日志：/opt/vehicle-management-system/service.log")
-                   }
-               }
-           }
-       }
+        stage('检查服务是否启动') {
+            steps {
+                script {
+                    def serviceStatus = sh(script: 'ps aux | grep "java -jar /opt/vehicle-management-system/synu_xh-0.0.1-SNAPSHOT.jar" | grep -v grep', returnStatus: true)
+                    if (serviceStatus != 0) {
+                        error("服务未成功启动，请检查日志：/opt/vehicle-management-system/service.log")
+                    } else {
+                        echo "服务已成功启动"
+                    }
+                }
+            }
+        }
 
 
 
