@@ -38,7 +38,7 @@ pipeline {
 //         }
 
 
-        stage('Stop Old Service') {
+        stage('停老服务') {
             steps {
                 script {
                     // 停止旧服务
@@ -48,7 +48,7 @@ pipeline {
         }
 
 
-       stage('Check Old Service Stopped') {
+       stage('检查老服务是否停止') {
                    steps {
                        script {
                            // 检查旧服务是否已停止
@@ -56,21 +56,6 @@ pipeline {
                            if (serviceStatus == 0) {
                                error("旧服务未成功停止，请手动处理")
                            }
-                       }
-                   }
-               }
-
-
-
-       stage('Check New Service Running') {
-                   steps {
-                       script {
-                           // 检查新服务是否成功启动
-                           def serviceStatus = sh(script: 'pgrep -f "java -jar /opt/vehicle-management-system/synu_xh-0.0.1-SNAPSHOT.jar"', returnStatus: true)
-                           if (serviceStatus != 0) {
-                               error("新服务未成功启动，请检查日志：/opt/vehicle-management-system/service.log")
-                           }
-                           echo "新服务已成功启动"
                        }
                    }
                }
@@ -96,6 +81,22 @@ pipeline {
                 )
             }
         }
+
+
+       stage('检查服务是否启动') {
+                   steps {
+                       script {
+                           // 检查新服务是否成功启动
+                           def serviceStatus = sh(script: 'pgrep -f "java -jar /opt/vehicle-management-system/synu_xh-0.0.1-SNAPSHOT.jar"', returnStatus: true)
+                           if (serviceStatus != 0) {
+                               error("新服务未成功启动，请检查日志：/opt/vehicle-management-system/service.log")
+                           }
+                           echo "新服务已成功启动"
+                       }
+                   }
+               }
+
+
 
 
     }
