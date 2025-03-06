@@ -87,7 +87,7 @@ pipeline {
                    steps {
                        script {
                            // 检查新服务是否成功启动
-                           def serviceStatus = sh(script: 'pgrep -f "java -jar /opt/vehicle-management-system/synu_xh-0.0.1-SNAPSHOT.jar"', returnStatus: true)
+                           def serviceStatus = sh(script: 'ps aux | grep "java -jar /opt/vehicle-management-system/synu_xh-0.0.1-SNAPSHOT.jar"| grep -v grep', returnStatus: true)
                            if (serviceStatus != 0) {
                                error("新服务未成功启动，请检查日志：/opt/vehicle-management-system/service.log")
                            }
