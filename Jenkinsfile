@@ -84,18 +84,21 @@ pipeline {
 
 
        stage('检查服务是否启动') {
-                   steps {
-                       script {
-                           // 检查新服务是否成功启动
-                           sleep(time: 8, unit: "SECONDS")
-                           def serviceStatus = sh(script: 'ps aux | grep "java -jar /opt/vehicle-management-system/synu_xh-0.0.1-SNAPSHOT.jar"| grep -v grep', returnStatus: true)
-                           if (serviceStatus != 0) {
-                               error("新服务未成功启动，请检查日志：/opt/vehicle-management-system/service.log")
-                           }
-                           echo "新服务已成功启动"
+           steps {
+               script {
+                   try {
+                       // 检查新服务是否成功启动
+                       def serviceStatus = sh(script: 'ps aux | grep "java -jar /opt/vehicle-management-system/synu_xh-0.0.1-SNAPSHOT.jar" | grep -v grep', returnStatus: true)
+                       if (serviceStatus != 0) {
+                           error("新服务未成功启动，请检查日志：/opt/vehicle-management-system/service.log")
                        }
+                       echo "新服务已成功启动"
+                   } catch (Exception e) {
+                       error("无法检查服务状态，请检查日志：/opt/vehicle-management-system/service.log")
                    }
                }
+           }
+       }
 
 
 
