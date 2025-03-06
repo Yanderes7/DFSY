@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>课程选择</title>
+    <title>车辆选择</title>
 </head>
 <body class="hold-transition skin-black sidebar-mini">
 <div th:replace="common/fragment :: link"></div>
@@ -11,7 +11,7 @@
     <div th:replace="common/fragment :: menu"></div>
     <div class="content-wrapper">
         <section class="content-header">
-            <h1>课程选择</h1>
+            <h1>车辆选择</h1>
         </section>
         <section class="content">
             <div class="box">
@@ -34,10 +34,10 @@
                             <tr>
                                 <th><input type="checkbox" id="allCb"></th>
                                 <th>编号</th>
-                                <th>课程名称</th>
-                                <th>课程类型</th>
-                                <th>课时</th>
-                                <th>任课教师</th>
+                                <th>车辆品牌</th>
+                                <th>车辆型号</th>
+                                <th>工时</th>
+                                <th>负责员工</th>
                                 <th>操作</th>
                             </tr>
                             </thead>
@@ -45,8 +45,8 @@
                             <tr th:each="course,stat:${pageInfo.list}">
                                 <td><input type="checkbox" class="cb"></td>
                                 <td th:text="${stat.count}">1</td>
-                                <td th:text="${course?.cname}">Java</td>
-                                <td th:text="${course?.type}">必修</td>
+                                <td th:text="${course?.cname}">路虎</td>
+                                <td th:text="${course?.type}">极光L</td>
                                 <td th:text="${course?.class_hour}">28周</td>
                                 <td>
                                     <select class="form-control teachers" name="t_id">
@@ -83,7 +83,7 @@
         function xh(){
              var $c_id = $(this).data("c_id");
              Swal.fire({
-                 title: '您确定要选择此课程吗？',
+                 title: '您确定要选择此车辆吗？',
                  text: "此操作不可撤销!",
                  icon: 'warning',
                  showCancelButton: true,

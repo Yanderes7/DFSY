@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>教师信息</title>
+    <title>客户信息</title>
 </head>
 <body class="hold-transition skin-black sidebar-mini">
 <div th:replace="common/fragment :: link"></div>
@@ -11,7 +11,7 @@
     <div th:replace="common/fragment :: menu"></div>
     <div class="content-wrapper">
         <section class="content-header">
-            <h1>教师新增与修改</h1>
+            <h1>客户新增与修改</h1>
         </section>
         <section class="content">
             <div class="box">
@@ -20,23 +20,23 @@
                     <input type="hidden" name="id" th:value="${teacher?.id}">
 
                     <div class="form-group" style="margin-top: 10px;">
-                        <label class="col-sm-2 control-label">教师工号：</label>
+                        <label class="col-sm-2 control-label">客户编号：</label>
                         <div class="col-sm-6">
-                            <input type="text" class="form-control" name="tnum" placeholder="请输入教师工号"
+                            <input type="text" class="form-control" name="tnum" placeholder="请输入客户编号"
                                    th:value="${teacher?.tnum}">
                         </div>
                     </div>
 
                     <div class="form-group" style="margin-top: 10px;">
-                        <label class="col-sm-2 control-label">教师用户名：</label>
+                        <label class="col-sm-2 control-label">客户用户名：</label>
                         <div class="col-sm-6">
-                            <input type="text" class="form-control" name="username" placeholder="请输入教师用户名"
+                            <input type="text" class="form-control" name="username" placeholder="请输入客户用户名"
                                    th:value="${teacher?.username}">
                         </div>
                     </div>
 
                     <div class="form-group" style="margin-top: 10px;">
-                        <label class="col-sm-2 control-label">教师密码：</label>
+                        <label class="col-sm-2 control-label">客户密码：</label>
                         <div class="col-sm-6">
                             <input type="text" class="form-control" name="password" placeholder="请输入密码"
                                    th:value="${teacher?.password}">
@@ -84,17 +84,17 @@
                     </div>
 
                     <div class="form-group" style="margin-top: 10px;">
-                        <label class="col-sm-2 control-label">职称：</label>
+                        <label class="col-sm-2 control-label">昵称：</label>
                         <div class="col-sm-6">
-                            <input type="text" class="form-control" name="p_title" placeholder="请输入职称"
+                            <input type="text" class="form-control" name="p_title" placeholder="请输入昵称"
                                    th:value="${teacher?.p_title}">
                         </div>
                     </div>
 
                     <div class="form-group" style="margin-top: 10px;">
-                        <label class="col-sm-2 control-label">学院：</label>
+                        <label class="col-sm-2 control-label">车位：</label>
                         <div class="col-sm-6">
-                            <input type="text" class="form-control" name="dept" placeholder="请输入所属学院"
+                            <input type="text" class="form-control" name="dept" placeholder="请输入所属车位"
                                    th:value="${teacher?.dept}">
                         </div>
                     </div>

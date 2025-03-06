@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>已选课程</title>
+    <title>已选车辆</title>
 </head>
 <body class="hold-transition skin-black sidebar-mini">
 <div th:replace="common/fragment :: link"></div>
@@ -11,7 +11,7 @@
     <div th:replace="common/fragment :: menu"></div>
     <div class="content-wrapper">
         <section class="content-header">
-            <h1>已选课程</h1>
+            <h1>已选车辆</h1>
         </section>
         <section class="content">
             <div class="box">
@@ -21,7 +21,7 @@
                         <input type="hidden" name="currentPage" id="currentPage" value="1">
                         <div class="form-group">
                             <label for="keyword">关键字:</label>
-                            <input type="text" class="form-control" id="keyword" name="keyword" placeholder="请输入课程名称"th:value="${qo?.keyword}">
+                            <input type="text" class="form-control" id="keyword" name="keyword" placeholder="请输入车辆名称"th:value="${qo?.keyword}">
                         </div>
                         <button type="submit" class="btn btn-primary"><span class="glyphicon glyphicon-search"></span>查询
                         </button>
@@ -34,12 +34,12 @@
                             <tr>
                                 <th><input type="checkbox" id="allCb"></th>
                                 <th>编号</th>
-                                <th>课程名称</th>
-                                <th>课程类型</th>
-                                <th>课时</th>
-                                <th>任课教师</th>
-                                <th>教师职称</th>
-                                <th>所在教室</th>
+                                <th>车辆品牌</th>
+                                <th>车辆型号</th>
+                                <th>工时</th>
+                                <th>负责员工</th>
+                                <th>所属部门</th>
+                                <th>所在车位</th>
                                 <th>操作</th>
                             </tr>
                             </thead>
@@ -48,16 +48,16 @@
                                 <td><input type="checkbox" class="cb"></td>
                                 <!--<input type="hidden" name="c_id" th:value="${course?.id}">-->
                                 <td th:text="${stat.count}" >1</td>
-                                <td th:text="${stu_course?.c_name}">Java</td>
-                                <td th:text="${stu_course?.c_type}">必修</td>
+                                <td th:text="${stu_course?.c_name}">路虎</td>
+                                <td th:text="${stu_course?.c_type}">极光L</td>
                                 <td th:text="${stu_course?.c_hour}">28周</td>
-                                <td th:text="${stu_course?.t_name}">刘聪</td>
-                                <td th:text="${stu_course?.t_title}">讲师</td>
+                                <td th:text="${stu_course?.t_name}">寅子</td>
+                                <td th:text="${stu_course?.t_title}">高级技工</td>
                                 <td th:text="${stu_course?.classroom}">402</td>
                                 <td>
                                     <a class="btn btn-danger btn-xs delete"
                                        th:data-url="|/student/delete?id=${stu_course?.id}|">
-                                        <span class="glyphicon glyphicon-pencil"></span> 退课
+                                        <span class="glyphicon glyphicon-pencil"></span> 放弃
                                     </a>
                                 </td>
                             </tr>
@@ -76,7 +76,7 @@
     $('.delete').click(function () {
         var url = $(this).data('url');
         Swal.fire({
-            title: '您确定要删除此课程吗？',
+            title: '您确定要删除此车辆吗？',
             text: "此操作不可撤销!",
             icon: 'warning',
             showCancelButton: true,
