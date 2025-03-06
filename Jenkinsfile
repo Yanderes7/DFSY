@@ -96,7 +96,6 @@ pipeline {
                 )
             }
         }
-    }
 
 
     post {
@@ -105,5 +104,8 @@ pipeline {
             echo "构建失败，请检查日志"
             // 可以添加 Slack、Email 或其他通知方式
         }
+    }
+
+
     }
 }
