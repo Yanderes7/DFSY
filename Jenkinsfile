@@ -37,15 +37,15 @@ pipeline {
 //             }
 //         }
 
-        stages {
-                stage('Stop Old Service') {
-                    steps {
-                        script {
-                            // 停止旧服务
-                            sh 'pkill -f "java -jar /opt/vehicle-management-system/synu_xh-0.0.1-SNAPSHOT.jar" || true'
-                        }
-                    }
+
+        stage('Stop Old Service') {
+            steps {
+                script {
+                    // 停止旧服务
+                    sh 'pkill -f "java -jar /opt/vehicle-management-system/synu_xh-0.0.1-SNAPSHOT.jar" || true'
                 }
+            }
+        }
 
 
        stage('Check Old Service Stopped') {
