@@ -98,6 +98,9 @@ pipeline {
         }
 
 
+    }
+
+
     post {
         failure {
             // 构建失败时发送通知
@@ -106,6 +109,4 @@ pipeline {
         }
     }
 
-
-    }
 }
