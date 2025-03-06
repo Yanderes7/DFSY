@@ -63,7 +63,7 @@ pipeline {
 
 
 
-        stage('部署到生产环境') {
+       stage('部署到生产环境') {
             steps {
                 sh '''
                     # 使用外部私钥文件运行 Ansible
