@@ -38,28 +38,27 @@ pipeline {
 //         }
 
 
-        stage('停老服务') {
-            steps {
-                script {
-                    // 停止旧服务
-//                     sh 'pkill -f "java -jar /opt/vehicle-management-system/synu_xh-0.0.1-SNAPSHOT.jar" || true'
-                       sh 'sudo lsof -ti :8080 | xargs -r sudo kill -9'
-                }
-            }
-        }
-
-
-       stage('检查老服务是否停止') {
-                   steps {
-                       script {
-                           // 检查旧服务是否已停止
-                           def serviceStatus = sh(script: 'pgrep -f "java -jar /opt/vehicle-management-system/synu_xh-0.0.1-SNAPSHOT.jar"', returnStatus: true)
-                           if (serviceStatus == 0) {
-                               error("旧服务未成功停止，请手动处理")
-                           }
-                       }
-                   }
-               }
+//         stage('停老服务') {
+//             steps {
+//                 script {
+//                     // 停止旧服务
+//                      sh 'pkill -f "java -jar /opt/vehicle-management-system/synu_xh-0.0.1-SNAPSHOT.jar" || true'
+//                 }
+//             }
+//         }
+//
+//
+//        stage('检查老服务是否停止') {
+//                    steps {
+//                        script {
+//                            // 检查旧服务是否已停止
+//                            def serviceStatus = sh(script: 'pgrep -f "java -jar /opt/vehicle-management-system/synu_xh-0.0.1-SNAPSHOT.jar"', returnStatus: true)
+//                            if (serviceStatus == 0) {
+//                                error("旧服务未成功停止，请手动处理")
+//                            }
+//                        }
+//                    }
+//                }
 
 
 
@@ -84,18 +83,18 @@ pipeline {
         }
 
 
-        stage('检查服务是否启动') {
-            steps {
-                script {
-                    def serviceStatus = sh(script: 'ps aux | grep "java -jar /opt/vehicle-management-system/synu_xh-0.0.1-SNAPSHOT.jar" | grep -v grep', returnStatus: true)
-                    if (serviceStatus != 0) {
-                        error("服务未成功启动，请检查日志：/opt/vehicle-management-system/service.log")
-                    } else {
-                        echo "服务已成功启动"
-                    }
-                }
-            }
-        }
+//         stage('检查服务是否启动') {
+//             steps {
+//                 script {
+//                     def serviceStatus = sh(script: 'ps aux | grep "java -jar /opt/vehicle-management-system/synu_xh-0.0.1-SNAPSHOT.jar" | grep -v grep', returnStatus: true)
+//                     if (serviceStatus != 0) {
+//                         error("服务未成功启动，请检查日志：/opt/vehicle-management-system/service.log")
+//                     } else {
+//                         echo "服务已成功启动"
+//                     }
+//                 }
+//             }
+//         }
 
 
 
@@ -103,12 +102,12 @@ pipeline {
     }
 
 
-    post {
-        failure {
-            // 构建失败时发送通知
-            echo "构建失败，请检查日志"
-            // 可以添加 Slack、Email 或其他通知方式
-        }
-    }
+//     post {
+//         failure {
+//             // 构建失败时发送通知
+//             echo "构建失败，请检查日志"
+//             // 可以添加 Slack、Email 或其他通知方式
+//         }
+//     }
 
 }

@@ -13,6 +13,19 @@
         src: "/var/jenkins_home/workspace/vehicle-management-system/target/synu_xh-0.0.1-SNAPSHOT.jar"
         dest: "/opt/vehicle-management-system/synu_xh-0.0.1-SNAPSHOT.jar"
 
+    - name: 停止旧服务
+      shell: "pgrep -f 'java -jar /opt/vehicle-management-system/synu_xh-0.0.1-SNAPSHOT.jar' && pkill -f 'java -jar /opt/vehicle-management-system/synu_xh-0.0.1-SNAPSHOT.jar' || echo '旧服务未运行'"
+      register: stop_service
+      ignore_errors: true
+
+    - name: 检查旧服务是否已停止
+      shell: "pgrep -f 'java -jar /opt/vehicle-management-system/synu_xh-0.0.1-SNAPSHOT.jar'"
+      register: service_status
+      ignore_errors: true
+      until: service_status.rc != 0
+      retries: 3
+      delay: 5
+
 
     - name: 启动服务
       shell: "nohup java -jar /opt/vehicle-management-system/synu_xh-0.0.1-SNAPSHOT.jar > /opt/vehicle-management-system/service.log 2>&1 &"
