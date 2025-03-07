@@ -17,14 +17,14 @@ pipeline {
                     sh 'printenv'  // 打印所有环境变量
             }
         }
-        stage('拉取代码') {
-            steps {
-                git branch: params.GIT_BRANCH, url: 'https://github.com/Yanderes7/DFSY.git'
-            }
-        }
         stage('清理工作空间') {
             steps {
                 cleanWs()
+            }
+        }
+        stage('拉取代码') {
+            steps {
+                git branch: params.GIT_BRANCH, url: 'https://github.com/Yanderes7/DFSY.git'
             }
         }
         stage('构建项目') {
