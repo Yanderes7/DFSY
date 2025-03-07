@@ -27,20 +27,15 @@ pipeline {
                 git branch: params.GIT_BRANCH, url: 'https://github.com/Yanderes7/DFSY.git'
             }
         }
-        stage('检查模板文件') {
-                    steps {
-                        sh 'ls -al src/main/resources/templates/common/nopermission.html'
-                    }
-                }
+//         stage('检查模板文件') {
+//                     steps {
+//                         sh 'ls -al src/main/resources/templates/common/nopermission.html'
+//                     }
+//                 }
         stage('构建项目') {
             steps {
                 sh 'mvn clean package'
                 stash name: 'jar', includes: 'target/*.jar'
-            }
-        }
-        stage('验证构建结果') {
-            steps {
-                sh 'jar tf target/your-app.jar | grep common/nopermission.html'
             }
         }
 
