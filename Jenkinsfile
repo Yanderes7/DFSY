@@ -22,6 +22,11 @@ pipeline {
                 git branch: params.GIT_BRANCH, url: 'https://github.com/Yanderes7/DFSY.git'
             }
         }
+        stage('清理工作空间') {
+            steps {
+                cleanWs()
+            }
+        }
         stage('构建项目') {
             steps {
                 sh 'mvn clean package'
